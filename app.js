@@ -11,84 +11,78 @@ function getComputerChoice(){
     }
 }
 
-function getHumanChoice(){
-    while (true){
-        humanChoice = prompt('scissors, rock or paper');
-        humanChoice = humanChoice.toLowerCase() // let less error go through
-        if (humanChoice == "scissors" || humanChoice == 'rock' || humanChoice == "paper"){
-            return humanChoice;
-        }
-        else{
-            alert('Please enter a correct choice between scissors, rock and paper');
-        }
-    }
-}
+const roundResult = document.querySelector("#roundResult");
+const buttons = document.querySelector("ul");
+let humanScore = 0;
+let computerScore = 0;
+const humanScoreContainer = document.querySelector("#humanScore");
+const computerScoreContainer = document.querySelector("#computerScore");
 
-function roundOfTheGame(){
-    let computerChoice = getComputerChoice();
-    let humanChoice = getHumanChoice();
+buttons.addEventListener("click", (e)=>{
+    const humanChoice = e.target.id;
+    const computerChoice = getComputerChoice();
     if (computerChoice === humanChoice){
-        alert('Tie');
-        return;
+        roundResult.textContent = ('Tie');
     }
     else{
         switch (computerChoice){
             case 'rock':
                 if (humanChoice == 'paper'){
-                    alert('You win a point');
-                    return 1;
+                    roundResult.textContent = ('You win a point');
+                    humanScore += 1;
+                    humanScoreContainer.textContent = `Your score : ${humanScore}`;
                 } 
                 else{
-                    alert('You lost');
-                    return 0;
+                    roundResult.textContent = ('You lost');
+                    computerScore += 1;
+                    computerScoreContainer.textContent = `Computer score : ${computerScore}`;
                 }
+                break;
             case 'paper':     
                 if (humanChoice == 'scissors'){
-                    alert('You win a point');
-                    return 1;
+                    roundResult.textContent = ('You win a point');
+                    humanScore += 1;
+                    humanScoreContainer.textContent = `Your score : ${humanScore}`;
                 } 
                 else{
-                    alert('You lost');
-                    return 0;
+                    roundResult.textContent = ('You lost');
+                    computerScore += 1;
+                    computerScoreContainer.textContent = `Computer score : ${computerScore}`;
+                    
                 }
+                break;
             case 'scissors':
                 if (humanChoice == 'rock'){
-                    alert('You win a point');
-                    return 1;
+                    roundResult.textContent = ('You win a point');
+                    humanScore += 1;
+                    humanScoreContainer.textContent = `Your score : ${humanScore}`;
                 } 
                 else{
-                    alert('You lost');
-                    return 0;
+                    roundResult.textContent = ('You lost');
+                    computerScore += 1;
+                    computerScoreContainer.textContent = `Computer score : ${computerScore}`;
                 }
+                break;
             }
         }
-    }
-
-
-function gameLoop(){
-
-    for (let i=0; i<5; i++){
-        score = roundOfTheGame()
-        if (score == 1){
-            humanScore ++;
+        if (humanScore === 5){
+            const toErase = document.querySelector("body").childNodes
+            toErase.forEach( (node) => {
+                node.remove()
+            })
+            document.querySelector('body').textContent = "You win"
         }
-        else if (score==0){
-            computerScore ++
+        else if (computerScore === 5){
+            const toErase = document.querySelector("body").childNodes
+            toErase.forEach( (node) => {
+                node.remove()
+            })
+            document.querySelector('body').textContent = "You lost"
+
+
         }
-    }
-    if (humanScore > computerScore){
-        alert("You won")
-    }
-    else if (computerScore > humanScore){
-        alert('You lost')
-    }
-    else{
-        alert('There is a tie')
-    }
-}
+})
 
 
-let humanScore = 0
-let computerScore = 0
 
 gameLoop()
