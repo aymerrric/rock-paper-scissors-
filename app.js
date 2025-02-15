@@ -19,7 +19,7 @@ const humanScoreContainer = document.querySelector("#humanScore");
 const computerScoreContainer = document.querySelector("#computerScore");
 
 buttons.addEventListener("click", (e)=>{
-    const humanChoice = e.target.id;
+    const humanChoice = e.target.closest("button").id;
     const computerChoice = getComputerChoice();
     if (computerChoice === humanChoice){
         roundResult.textContent = ('Tie');
@@ -85,4 +85,3 @@ buttons.addEventListener("click", (e)=>{
 
 
 
-gameLoop()
